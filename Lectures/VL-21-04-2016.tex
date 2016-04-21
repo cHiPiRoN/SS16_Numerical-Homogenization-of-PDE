@@ -1,0 +1,90 @@
+\documentclass[../skript.tex]{subfiles}
+
+% We are in c1se3su2
+			To summarize, we considered the problem:
+			\begin{equation}\label{Peps}\tag{$P_\varepsilon$}
+				\left.
+					\begin{aligned}
+						-(A_\varepsilon u_\varepsilon')' &=& f,\quad\text{in }[0,1]\\
+						u(0)=u(1)& =& 0
+					\end{aligned}
+				\right\}
+			\end{equation}
+			and the corresponding for the macroscopic part:
+			\begin{equation}\label{P0}\tag{$P_0$}
+				\left.
+					\begin{aligned}
+						-(A_0 u_0')' &=& f,\quad\text{in }[0,1]\\
+						u(0)=u(1)&=& 0
+					\end{aligned}
+				\right\}
+			\end{equation}
+			The strategy for numerical approximation of the macroscopic part $u_0$ of $u_\varepsilon$ is now pretty clear:
+			\begin{itemize}
+				\item Compute / approximate $A_0$ (high accuracy, as this is quite cheap)
+				\item Approximately solve Problem \ref{P0} by your favorite FEM-scheme, e.g. P1-FEM on a uniform grid of width $H>0$, where $H$ is chosen according to the desired accuracy
+			\end{itemize}
+			\vspace{1em}
+			\begin{remark}
+				$H>0$ is the \textbf{Discretization Parameter} and needs to be chosen according to level of accuracy needed.
+			\end{remark}
+
+		% Aim now is to remove the constraint of periodicity to the coefficient
+		\subsection{Numerical homogenization of general $L^\infty$-coefficients}
+			The aim of this section is to revitisite the derivation of the preious section in order to understand the role of periodicity and to see how to generalize the concept. Let therefore $A\in L^\infty(0,1)$ and assume $\exists 0<\alpha\leq\beta<\infty:\,\alpha\leq A(x)\leq\beta$. Moreover $f\in L^2(0,1)$ is assumed. Note that there is no $\varepsilon$ occuring anymore, i.e. no periodicity is assumed from now on for the coefficient $A$!\par 
+			Consider the model problem
+			\begin{equation}\tag{P}\label{P}
+				\left.
+				\begin{aligned}
+					-(A(x)u'(x))' &=& f(x),\quad 0\leq x\leq 1\\
+					u(0)=u(1)&=& 0
+				\end{aligned}
+				\right\}
+			\end{equation}
+			The weak formulation reads: Find $u\in H^1_0(0,1)$ s.t.
+			\[
+				\int_0^1 A(x)u'(x) v(x)\,dx = \int_0^1 f(x)v(x),\quad\forall v\in H^1_0(0,1)
+			\]
+			Let $H>0$ denote the mesh-size of some regular quasi-uniform subdivision $\mathcal{T}_H$ of $(0,1)$ into subintervals.\par
+			\textbf{Our goal} is to find $A_H\in P^0()$ s.t. for any $f\in L^2(0,1)$ it holds that
+			\[
+				\|u_{A,f}-u_{A_H,f}\|_{L^2(0,1)} \leq C_{\alpha,\beta}H\|f\|_{L^2(0,1)},
+			\]
+			where $u_{A_H,f}$ solves
+			\[
+				\int_0^1 A_H(x) u_{A_h,f}'(x)v'(x)\,dx = \int_0^1 f(x)v(x)\,dx,\quad\forall v\in H^1_0(0,1),
+			\]
+			and $C_{\alpha,\beta}$ should be a universal constant independent of $H$, $f$ and variations of $A$ (it \underline{just} depends on $\alpha,\beta$).\par
+			Following the arguments of the previous section (Aubin-Nitsche-Argument, standard inequalities) we are able to show that
+			\begin{IEEEeqnarray*}{rCl}
+				\|u_{A,f}-u_{A_H,f}\|_{L^2(0,1)} &\leq&  \sum_{T\in\mathcal{T}_H}\bigg(\pi^{-1}\|(A_Hz')'\|_{L^2(T)}\left\|\frac{A_H-A}{A}\right\|_{L^\infty(T)}\|Au'\|_{L^2(T)}\\
+				&&+ \pi^{-1}H\|A_Hz'\|_{L^2(T)}\left\|\frac{A_H-A}{A}\right\|_{L^\infty(T)} \|\underbrace{(Au')'}_{=f}\|_{L^2(T)}\\
+				&&+ \left| \dashint_T A_Hz'\,dx\dashint_T Au'\,dx\dashint_T\frac{A_H-A}{A}\,dx \right|\bigg)
+			\end{IEEEeqnarray*}
+			where we assumed that $A_H$ exists and is positive and where $z$ solves
+			\[
+				\int_0^1 A_Hz'v'\,dx = \int_0^1 (U_{A,f}-u_{A_H,f})v\,dx,\quad\forall v\in H^1_0(0,1).
+			\]
+			Choose $A_{H|_T}$ such that
+			\[
+				\dashint_T \frac{A_H-A}{A}\,dx = 0.
+			\]
+			This leads to
+			\[
+				A_{H|_T} \coloneqq \left(\dashint_T A^{-1}\,dx\right)^{-1}.
+			\]
+			Wit hthis choice, we get the desired results:\par
+			\begin{itemize}
+				\item $\alpha\leq A_H\leq \beta$
+				\item $\exists! u_{A_H,f}\in H^1_0$ that solves
+				\[
+					\int_0^1 A_H u_{A_H,f}' v'\,dx = \int_0^1 fv\,dx,\quad\forall v\in H^1_0(0,1)
+				\]
+				\item \[
+					\|u_{A,f}-u_{A_H,f}\|_{L^2(0,1)} \leq C_{\alpha,\beta}H\|f\|_{L^2(0,1)}
+				\]
+			\end{itemize}
+			In particular, $A$ admits homogenization in the classical sense, if there is a mesh $\mathcal{T}_H$ such that
+			\[
+				\dashint_T A^{-1}\,dx = \dashint_K A^{-1}\,dx,\quad\forall T,K\in\mathcal{T}_H.
+			\]
