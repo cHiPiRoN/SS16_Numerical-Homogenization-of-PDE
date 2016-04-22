@@ -86,8 +86,8 @@
 			is chosen as the harmonic mean of $A_\varepsilon$. With this choice of $A_0$ and \emph{Cauchy-Schwarz} we get
 			\begin{IEEEeqnarray*}{rCl}
 				\|u_\varepsilon-u_0\|_{L^2(0,1)}^2 &\leq& \sum_{j=1}^N \left\| \frac{A_0-A_\varepsilon}{A_\varepsilon} \right\|_{L^\infty(0,1)}\\
-				&& \cdot \left\{  \|z'-\overline{z'}\|_{L^2((j-1)\varepsilon,j\varepsilon)}\|A_\varepsilon u_\varepsilon'\|_{L^2((j-1)\varepsilon,j\varepsilon)} + \|\overline{z'}\|_{L^2((j-1)\varepsilon,j\varepsilon)}\|A_\varepsilon u_\varepsilon'- \overline{A_\varepsilon u_\varepsilon'}\|_{L^2((j-1)\varepsilon,j\varepsilon)} \right\}\\
-				&\leq& \frac{\varepsilon}{\pi}\left\|\frac{A_0-A_\varepsilon}{A_\varepsilon}\right\|_{L^\infty(0,1)}\sum_{j=1}^N\left( \|z''\|_{L^2((j-1)\varepsilon,j\varepsilon)}\|A_\varepsilon u_\varepsilon'\|_{L^2((j-1)\varepsilon,j\varepsilon)} + \|z'\|_{L^2((j-1)\varepsilon,j\varepsilon)}\|(A_\varepsilon u_\varepsilon')'\|_{L^2((j-1)\varepsilon,j\varepsilon)} \right).
+				&& \cdot \bigg\{  \|z'-\overline{z'}\|_{L^2((j-1)\varepsilon,j\varepsilon)}\|A_\varepsilon u_\varepsilon'\|_{L^2((j-1)\varepsilon,j\varepsilon)} \\&&+ \|\overline{z'}\|_{L^2((j-1)\varepsilon,j\varepsilon)}\|A_\varepsilon u_\varepsilon'- \overline{A_\varepsilon u_\varepsilon'}\|_{L^2((j-1)\varepsilon,j\varepsilon)} \bigg\}\\
+				&\leq& \frac{\varepsilon}{\pi}\left\|\frac{A_0-A_\varepsilon}{A_\varepsilon}\right\|_{L^\infty(0,1)}\sum_{j=1}^N\bigg( \|z''\|_{L^2((j-1)\varepsilon,j\varepsilon)}\|A_\varepsilon u_\varepsilon'\|_{L^2((j-1)\varepsilon,j\varepsilon)}\\&& + \|z'\|_{L^2((j-1)\varepsilon,j\varepsilon)}\|(A_\varepsilon u_\varepsilon')'\|_{L^2((j-1)\varepsilon,j\varepsilon)} \bigg).
 			\end{IEEEeqnarray*}
 			Define now constants $\alpha,\beta$ and assume that $\alpha\leq A_\varepsilon\leq \beta$. Then we have (continuing the previous estimate and using discrete Cauchy-Schwarz):
 			\begin{IEEEeqnarray*}{rCl}
